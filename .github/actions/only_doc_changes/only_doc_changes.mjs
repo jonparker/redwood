@@ -5,6 +5,13 @@ await exec('git fetch origin main')
 
 const { stdout } = await getExecOutput('git diff origin/main --name-only')
 
+const testmode = true;
+
+if (testmode) {
+  core.setOutput('only-doc-changes', false)
+  process.exit(0)
+}
+
 const changedFiles = stdout.toString().trim().split('\n').filter(Boolean)
 
 for (const changedFile of changedFiles) {
